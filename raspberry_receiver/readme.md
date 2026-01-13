@@ -57,24 +57,6 @@ These nodes handle the actual motor control.
 
 ---
 
-## Dependencies
-
-- **Python 3**  
-- **ROS2 (Foxy or later)** with the following packages:
-  - `rclpy`
-  - `std_msgs`
-- Built-in Python modules: `socket`, `json`, `threading`, `time`
-
-**Important:** Ensure the following ROS2 nodes are running for full functionality:
-
-- `cmd_dir_node`
-- `stm32_node`
-- `cmd_vel_node`
-
-These nodes handle the actual motor control.
-
----
-
 ## Usage
 
 1. Launch the necessary motor nodes:
@@ -140,3 +122,4 @@ WATCHDOG_RATE = 0.1      # Watchdog check interval (seconds)
 
 - **JSON decode errors:**
   - Ensure packets are valid JSON and contain numeric `velocity` and `steer`.
+
