@@ -20,7 +20,7 @@ Includes a **watchdog mechanism** to ensure emergency stops if UDP packets stop 
 
 ## Overview
 
-This node acts as a bridge between an external controller (e.g., RB5 robot or remote interface) and motor controllers. It receives JSON commands over UDP and publishes them to ROS topics:
+This node acts as a bridge between an external controller (e.g., RB5 ) and motor controllers. It receives JSON commands over UDP and publishes them to ROS topics:
 
 - `/cmd_vel` → Vehicle velocity
 - `/cmd_dir` → Steering angle
@@ -122,4 +122,5 @@ WATCHDOG_RATE = 0.1      # Watchdog check interval (seconds)
 
 - **JSON decode errors:**
   - Ensure packets are valid JSON and contain numeric `velocity` and `steer`.
+
 
