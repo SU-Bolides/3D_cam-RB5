@@ -1,5 +1,6 @@
 # Guide: Flashing Qualcomm RB5 Development Kit from Ubuntu 24.04
-
+RB5 is already flashed and has everyhthing installed for 3d camera integration, if you ever need to flash again (not recommended) follow this guide. 
+the current vzersion flashed on rb5 is ubuntu 20.04, we tried newer versions it didn't work. 
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -19,21 +20,16 @@
   - [Enter EDL Mode](#enter-edl-mode)
   - [Flash the Device](#flash-the-device)
 - [Verification](#verification)
-- [Summary](#summary)
-  - [Supported Configurations](#supported-configurations)
-  - [Limitations](#limitations)
-- [Troubleshooting](#troubleshooting)
-  - [Device Not Detected](#device-not-detected)
-  - [Docker Container Issues](#docker-container-issues)
-
 ---
 
 ## Introduction
 
-This guide provides step-by-step instructions for flashing the Qualcomm Robotics RB5 Development Kit from an Ubuntu 24.04 host system. Since SDK Manager cannot run directly on Ubuntu 24.04, the solution involves using Docker containers with Ubuntu 20.04 or 22.04.
+This guide provides step-by-step instructions for flashing the Qualcomm Robotics RB5 Development Kit from an Ubuntu 24.04 host system. Since SDK Manager cannot run directly on Ubuntu 24.04, the solution involves using Docker containers with Ubuntu 20.04.
+## Preparation : 
+Create an account on thudercomm 
+[https://www.thundercomm.com/register/](https://www.thundercomm.com/register/)
 
 ## Host System Preparation (Ubuntu 24.04)
-
 ### Install ADB
 
 First, install Android Debug Bridge (ADB) to communicate with the device:
@@ -89,8 +85,6 @@ cd TC-sdkmanager-4.2.0
 sudo dpkg -i tc-sdkmanager-vx.x.x_amd64.deb
 ```
 
-Replace `vx.x.x` with the actual version number.
-
 After this step, the necessary Dockerfiles (Dockerfile_20.04, Dockerfile_22.04) and SDK Manager files will be available in the current directory.
 
 ## Docker Container Setup
@@ -104,13 +98,6 @@ The Dockerfile determines which Ubuntu version will be installed on the RB5:
 ```bash
 ln -sf Dockerfile_20.04 Dockerfile
 sudo docker build -t ubuntu:20.04-sdkmanager .
-```
-
-#### For Ubuntu 22.04 on RB5 (Gen2 Platform)
-
-```bash
-ln -sf Dockerfile_22.04 Dockerfile
-sudo docker build -t ubuntu:22.04-sdkmanager .
 ```
 
 ### Run Docker Container
@@ -127,8 +114,6 @@ sudo docker run -v /home/${USER}:/home/hostPC/ \
     -p 36000:22 \
     ubuntu:20.04-sdkmanager
 ```
-
-**Note:** Replace `20.04` with `22.04` if targeting Ubuntu 22.04.
 
 ## Flashing Process
 
@@ -148,10 +133,9 @@ Follow these steps in the SDK Manager interface:
 2. Select working directory: `/home/hostPC/rb5_build`
 3. Select product: **RB5**
 4. Select platform:
-   - **LU** for Ubuntu 20.04
-   - **Gen2** for Ubuntu 22.04
-5. Choose the available version
-6. Start download and repack process
+   - **LU2.0** for Ubuntu 20.04
+5. Choose the available version (latest)
+6. Start download process
 
 **Note:** This process takes approximately 30-40 minutes.
 
@@ -165,7 +149,13 @@ Prepare the RB5 board to enter Emergency Download (EDL) mode:
 4. Connect USB-C cable to the PC
 5. Release the F_DL button
 
-The board should now be in EDL mode.
+The board should now be in EDL mode. 
+check if it is in EDL mode 
+``` bash 
+adb devices
+you should see the device in edl lide 
+```
+You should now see the device in EDL mode 
 
 ### Flash the Device
 
@@ -185,31 +175,3 @@ adb wait-for-device shell
 ```
 
 If a shell prompt appears, the flash was successful.
-
-## Summary
-
-### Supported Configurations
-
-- Ubuntu 20.04 on RB5 using LU2.0 platform (Docker Ubuntu 20.04)
-- Ubuntu 22.04 on RB5 Gen2 (Docker Ubuntu 22.04)
-
-### Limitations
-
-- LU1.0 platform only supports Ubuntu 18.04 (not Ubuntu 20.04)
-- SDK Manager requires Ubuntu 20.04 or 22.04 environment
-- ModemManager must be stopped during the process
-
-## Troubleshooting
-
-### Device Not Detected
-
-- Verify ModemManager is stopped: `sudo systemctl status ModemManager`
-- Check USB connection
-- Verify EDL mode entry (F_DL button procedure)
-- Check `adb devices` output
-
-### Docker Container Issues
-
-- Ensure Docker daemon is running: `sudo systemctl status docker`
-- Check container status: `sudo docker ps -a`
-- Verify volume mounts are correct
