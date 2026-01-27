@@ -153,7 +153,6 @@ The board should now be in EDL mode.
 check if it is in EDL mode 
 ``` bash 
 adb devices
-you should see the device in edl lide 
 ```
 You should now see the device in EDL mode 
 
