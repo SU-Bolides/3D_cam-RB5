@@ -195,7 +195,8 @@ The final command is computed as:
   final_steer = camera_steer + lidar_steer
   ```
 - **Velocity**
-  ```final_velocity = camera_velocity × lidar_velocity_limit
+  ```
+  final_velocity = camera_velocity × lidar_velocity_limit
   ```
 Then:
 - steering gain is applied
@@ -449,6 +450,7 @@ The camera sees the floor as an obstacle.
 
 ## Obstacle avoidance too sensitive or too slow**
   - Adjust `OBSTACLE_DETECT`, `MIN_DISTANCE`, `MAX_SPEED`, and `MIN_SPEED` in the `Config` class.
+
 
 
 
