@@ -32,3 +32,8 @@ This setup allows the RB5 robot to navigate autonomously while reacting safely t
 - Watchdog mechanism for emergency stop  
 - Floor rejection to ignore false obstacles near the camera  
 
+## Future Lines of Research
+
+Teleoperation of the vehicle can be used,  
+and with the camera data, an imitation learning model could be trained  
+so that the robot learns to drive fully autonomously on the track.
