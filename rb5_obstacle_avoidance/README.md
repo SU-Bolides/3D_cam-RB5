@@ -226,7 +226,8 @@ Subscribes to:
 
 
 ## Run
-```ros2 run rb5_navigation fusion
+```
+ros2 run rb5_navigation fusion
 ```
 
 # 3. fusion_emergency_stop (Fusion + Emergency Override)
@@ -450,6 +451,7 @@ The camera sees the floor as an obstacle.
 
 ## Obstacle avoidance too sensitive or too slow**
   - Adjust `OBSTACLE_DETECT`, `MIN_DISTANCE`, `MAX_SPEED`, and `MIN_SPEED` in the `Config` class.
+
 
 
 
