@@ -14,8 +14,7 @@ The main folder includes:
    - Publishes velocity and steering to ROS2 topics (`/cmd_vel` and `/cmd_dir`).  
    - Includes a watchdog: stops the robot if UDP packets stop arriving.  
 
-2. **`smart_obstacle_avoidance.py`**  
-   - Subscribes to the Intel RealSense depth camera (`/camera/depth/image_rect_raw`).  
+2. **`rb5_obstacle_avoidance.py`**   
    - Processes depth images to compute obstacle distances across horizontal slices.  
    - Calculates safe forward speed and steering angles based on detected obstacles.  
    - Sends commands via UDP to the Raspberry Pi, which forwards them to the motor nodes.
